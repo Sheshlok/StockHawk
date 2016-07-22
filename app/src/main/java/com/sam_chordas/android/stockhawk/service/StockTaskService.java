@@ -2,6 +2,7 @@ package com.sam_chordas.android.stockhawk.service;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
@@ -10,17 +11,20 @@ import android.os.RemoteException;
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.GcmTaskService;
 import com.google.android.gms.gcm.TaskParams;
-import com.sam_chordas.android.stockhawk.data.QuoteColumns;
-import com.sam_chordas.android.stockhawk.data.QuoteProvider;
-import com.sam_chordas.android.stockhawk.ui.Utils;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
+import com.sam_chordas.android.stockhawk.StockHawkApplication;
+import com.sam_chordas.android.stockhawk.data.provider.QuoteColumns;
+import com.sam_chordas.android.stockhawk.data.provider.QuoteProvider;
+import com.sam_chordas.android.stockhawk.utilities.Utils;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import javax.inject.Inject;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import timber.log.Timber;
 
 /**
@@ -30,15 +34,19 @@ import timber.log.Timber;
  */
 public class StockTaskService extends GcmTaskService {
 
-    private OkHttpClient client = new OkHttpClient();
+    @Inject OkHttpClient mOkHttpClient;
+
+    /* Action name for sending broadcast to WidgetActionProvider (wrapped Broadcast Receiver) */
+    public static final String ACTION_DATA_UPDATED = "com.sam_chordas.android.stockhawk.ACTION_DATA_UPDATED";
+
     private Context mContext;
     private StringBuilder mStoredSymbols = new StringBuilder();
     private boolean isUpdate;
 
-    public StockTaskService() {
-    }
+    public StockTaskService() {}
 
     public StockTaskService(Context context) {
+        ((StockHawkApplication)context.getApplicationContext()).getAppComponent().inject(StockTaskService.this);
         mContext = context;
     }
 
@@ -47,7 +55,7 @@ public class StockTaskService extends GcmTaskService {
                 .url(url)
                 .build();
 
-        Response response = client.newCall(request).execute();
+        Response response = mOkHttpClient.newCall(request).execute();
         return response.body().string();
     }
 
@@ -126,9 +134,8 @@ public class StockTaskService extends GcmTaskService {
                         mContext.getContentResolver().update(QuoteProvider.Quotes.CONTENT_URI, contentValues,
                                 null, null);
                     }
-                    // If the user provided symbol did not provide any result, inform the user.
-                    // Since we are in a background thread, we need to use a Runnable, which is
-                    // executed on the main thread
+                    // Send broadcast to widgets so widgets can update data
+                    updateWidgets();
                     mContext.getContentResolver().applyBatch(QuoteProvider.AUTHORITY,
                             Utils.quoteJsonToContentVals(getResponse));
                 } catch (RemoteException | OperationApplicationException e) {
@@ -140,6 +147,12 @@ public class StockTaskService extends GcmTaskService {
         }
 
         return result;
+    }
+
+    private void updateWidgets() {
+        // Setting the package ensures that only components in our app will receive the broadcast
+        Intent dataUpdatedIntent = new Intent(ACTION_DATA_UPDATED).setPackage(mContext.getPackageName());
+        mContext.sendBroadcast(dataUpdatedIntent);
     }
 
 }

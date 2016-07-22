@@ -1,9 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="material_cyan_500">#00bcd4</color>
-    <color name="material_cyan_700">#0097a7</color>
-    <color name="material_red_700">#D50000</color>
-    <color name="material_green_700">#00C853</color>
+    <color name="colorPrimary">#00BCD4</color>
+    <color name="colorPrimaryDark">#0097A7</color>
+    <color name="colorPrimaryLight">#B2EBF2</color>
+    <color name="colorAccent">#FF5722</color>
+
+    <color name="textAndIcons">#FFFFFF</color>
+    <color name="textPrimary">#212121</color>>
+    <color name="textSecondary">#727272</color>
+    <color name="dividerColor">#B6B6B6</color>
+
+
+    <color name="stockLossBackground">#D50000</color>
+    <color name="stockGainBackground">#00C853</color>
   
-    <color name="widget_title_background">#212121</color>
+    <color name="widget_title_background">@color/colorPrimary</color>
+
+    <color name="chart_background_color">#212121</color>
+    <color name="chart_grid_lines_color">#FFFFFF</color>
+    <color name="chart_axis_text_color">#FFFFFF</color>
+    <color name="chart_axis_line_color">#FFFFFF</color>
+    <color name="chart_line_color">#FFFFFF</color>
+
+    <array name="swipe_progress_colors">
+        <item>@color/colorPrimary</item>
+        <item>@color/colorAccent</item>
+    </array>
+
+    <!--Item Touch Selector -->
+    <color name="activated">#E0E0E0</color>
+    <color name="white">#FFF</color>
+
 </resources>

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/abc_list_item_padding_horizontal_material"
+    app:columnCount="4">
+
+    <TextView
+        android:id="@+id/opening_price_header"
+        android:text="@string/stock_details_open"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/textSecondary"
+        app:layout_columnWeight="1"
+        app:layout_gravity="fill_horizontal" />
+
+    <TextView
+        android:id="@+id/opening_price"
+        android:gravity="center|start"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:paddingLeft="4dp"
+        android:paddingStart="4dp"
+        android:textColor="@color/textPrimary"
+        app:layout_columnWeight="4"
+        app:layout_gravity="fill_horizontal"
+        tools:text="18.50" />
+
+    <TextView
+        android:id="@+id/market_cap_header"
+        android:paddingLeft="@dimen/abc_list_item_padding_horizontal_material"
+        android:paddingStart="@dimen/abc_list_item_padding_horizontal_material"
+        android:text="@string/stock_details_market_cap"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/textSecondary"
+        app:layout_columnWeight="1"
+        app:layout_gravity="fill_horizontal" />
+
+    <TextView
+        android:id="@+id/market_cap"
+        android:gravity="center|start"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/textPrimary"
+        android:paddingLeft="4dp"
+        android:paddingStart="4dp"
+        app:layout_columnWeight="4"
+        app:layout_gravity="fill_horizontal"
+        tools:text="10.81B" />
+
+    <TextView
+        android:id="@+id/book_value_header"
+        android:text="@string/stock_details_book_value"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/textSecondary"
+        app:layout_columnWeight="1"
+        app:layout_gravity="fill_horizontal" />
+
+    <TextView
+        android:id="@+id/book_value"
+        android:gravity="center|start"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:paddingLeft="4dp"
+        android:paddingStart="4dp"
+        android:textColor="@color/textPrimary"
+        app:layout_columnWeight="4"
+        app:layout_gravity="fill_horizontal"
+        tools:text="7.02" />
+
+    <TextView
+        android:id="@+id/ebitda_header"
+        android:paddingLeft="@dimen/abc_list_item_padding_horizontal_material"
+        android:paddingStart="@dimen/abc_list_item_padding_horizontal_material"
+        android:text="@string/stock_details_EBITDA"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/textSecondary"
+        app:layout_columnWeight="1"
+        app:layout_gravity="fill_horizontal" />
+
+    <TextView
+        android:id="@+id/ebitda"
+        android:gravity="center|start"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/textPrimary"
+        android:paddingLeft="4dp"
+        android:paddingStart="4dp"
+        app:layout_columnWeight="4"
+        app:layout_gravity="fill_horizontal"
+        tools:text="-25.02B" />
+
+    <TextView
+        android:id="@+id/day_high_header"
+        android:text="@string/stock_details_DaysHigh"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/textSecondary"
+        app:layout_columnWeight="1"
+        app:layout_gravity="fill_horizontal" />
+
+    <TextView
+        android:id="@+id/day_high"
+        android:gravity="center|start"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/textPrimary"
+        android:paddingLeft="4dp"
+        android:paddingStart="4dp"
+        app:layout_columnWeight="4"
+        app:layout_gravity="fill_horizontal"
+        tools:text="18.91" />
+
+    <TextView
+        android:id="@+id/year_high_header"
+        android:paddingLeft="@dimen/abc_list_item_padding_horizontal_material"
+        android:paddingStart="@dimen/abc_list_item_padding_horizontal_material"
+        android:text="@string/stock_details_year_high"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/textSecondary"
+        app:layout_columnWeight="1"
+        app:layout_gravity="fill_horizontal" />
+
+    <TextView
+        android:id="@+id/year_high"
+        android:gravity="center|start"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/textPrimary"
+        android:paddingLeft="4dp"
+        android:paddingStart="4dp"
+        app:layout_columnWeight="4"
+        app:layout_gravity="fill_horizontal"
+        tools:text="27.18" />
+
+    <TextView
+        android:id="@+id/day_low_header"
+        android:text="@string/stock_details_DaysLow"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/textSecondary"
+        app:layout_columnWeight="1"
+        app:layout_gravity="fill_horizontal" />
+
+    <TextView
+        android:id="@+id/day_low"
+        android:gravity="center|start"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/textPrimary"
+        android:paddingLeft="4dp"
+        android:paddingStart="4dp"
+        app:layout_columnWeight="4"
+        app:layout_gravity="fill_horizontal"
+        tools:text="18.01" />
+
+    <TextView
+        android:id="@+id/year_low_header"
+        android:paddingLeft="@dimen/abc_list_item_padding_horizontal_material"
+        android:paddingStart="@dimen/abc_list_item_padding_horizontal_material"
+        android:text="@string/stock_details_year_low"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/textSecondary"
+        app:layout_columnWeight="1"
+        app:layout_gravity="fill_horizontal" />
+
+    <TextView
+        android:id="@+id/year_low"
+        android:gravity="center|start"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/textPrimary"
+        android:paddingLeft="4dp"
+        android:paddingStart="4dp"
+        app:layout_columnWeight="4"
+        app:layout_gravity="fill_horizontal"
+        tools:text="15.21" />
+
+    <TextView
+        android:id="@+id/volume_header"
+        android:text="@string/stock_details_vol"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/textSecondary"
+        app:layout_columnWeight="1"
+        app:layout_gravity="fill_horizontal" />
+
+    <TextView
+        android:id="@+id/volume"
+        android:gravity="center|start"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/textPrimary"
+        android:paddingLeft="4dp"
+        android:paddingStart="4dp"
+        app:layout_columnWeight="4"
+        app:layout_gravity="fill_horizontal"
+        tools:text="1.58M" />
+
+    <TextView
+        android:id="@+id/avg_vol_header"
+        android:paddingLeft="@dimen/abc_list_item_padding_horizontal_material"
+        android:paddingStart="@dimen/abc_list_item_padding_horizontal_material"
+        android:text="@string/stock_details_avg_vol"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/textSecondary"
+        app:layout_columnWeight="1"
+        app:layout_gravity="fill_horizontal" />
+
+    <TextView
+        android:id="@+id/avg_vol"
+        android:gravity="center|start"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/textPrimary"
+        android:paddingLeft="4dp"
+        android:paddingStart="4dp"
+        app:layout_columnWeight="4"
+        app:layout_gravity="fill_horizontal"
+        tools:text="1.84M" />
+
+    <TextView
+        android:id="@+id/previous_close_header"
+        android:text="@string/stock_details_previous_close"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/textSecondary"
+        app:layout_columnWeight="1"
+        app:layout_gravity="fill_horizontal" />
+
+    <TextView
+        android:id="@+id/previous_close"
+        android:gravity="center|start"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/textPrimary"
+        app:layout_columnWeight="4"
+        android:paddingLeft="4dp"
+        android:paddingStart="4dp"
+        app:layout_gravity="fill_horizontal"
+        tools:text="19.08" />
+
+    <TextView
+        android:id="@+id/peRatio_header"
+        android:paddingLeft="@dimen/abc_list_item_padding_horizontal_material"
+        android:paddingStart="@dimen/abc_list_item_padding_horizontal_material"
+        android:text="@string/stock_details_pe"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/textSecondary"
+        app:layout_columnWeight="1"
+        app:layout_gravity="fill_horizontal" />
+
+    <TextView
+        android:id="@+id/peRatio"
+        android:gravity="center|start"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/textPrimary"
+        android:paddingLeft="4dp"
+        android:paddingStart="4dp"
+        app:layout_columnWeight="4"
+        app:layout_gravity="fill_horizontal"
+        tools:text="28.18" />
+
+    <TextView
+        android:id="@+id/eps_header"
+        android:text="@string/stock_details_eps"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/textSecondary"
+        app:layout_columnWeight="1"
+        app:layout_gravity="fill_horizontal" />
+
+    <TextView
+        android:id="@+id/eps"
+        android:gravity="center|start"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/textPrimary"
+        android:paddingLeft="4dp"
+        android:paddingStart="4dp"
+        app:layout_columnWeight="4"
+        app:layout_gravity="fill_horizontal"
+        tools:text="25.11" />
+
+    <TextView
+        android:id="@+id/dividend_yield_header"
+        android:paddingLeft="@dimen/abc_list_item_padding_horizontal_material"
+        android:paddingStart="@dimen/abc_list_item_padding_horizontal_material"
+        android:text="@string/stock_details_dividend_by_yield"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/textSecondary"
+        app:layout_columnWeight="1"
+        app:layout_gravity="fill_horizontal" />
+
+    <TextView
+        android:id="@+id/dividend_yield"
+        android:gravity="center|start"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/textPrimary"
+        android:paddingLeft="4dp"
+        android:paddingStart="4dp"
+        app:layout_columnWeight="4"
+        app:layout_gravity="fill_horizontal"
+        tools:text="NA" />
+
+</android.support.v7.widget.GridLayout>

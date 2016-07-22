@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.TabLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tabbar_choose_time_span"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:tabSelectedTextColor="@color/colorPrimary"
+    app:tabBackground="@android:color/background_light"
+    app:tabGravity="fill"
+    app:tabMode="scrollable">
+
+    <android.support.design.widget.TabItem
+        android:id="@+id/one_day_history"
+        style="@style/TabItem"
+        android:contentDescription="@string/tab_1_day_content_description"
+        android:text="@string/tab_1_day" />
+
+    <android.support.design.widget.TabItem
+        android:id="@+id/one_month_history"
+        style="@style/TabItem"
+        android:contentDescription="@string/tab_1_month_content_description"
+        android:text="@string/tab_1_month" />
+
+    <android.support.design.widget.TabItem
+        android:id="@+id/three_month_history"
+        style="@style/TabItem"
+        android:contentDescription="@string/tab_3_months_content_description"
+        android:text="@string/tab_3_months"/>
+
+    <android.support.design.widget.TabItem
+        android:id="@+id/six_month_history"
+        style="@style/TabItem"
+        android:contentDescription="@string/tab_6_months_content_description"
+        android:text="@string/tab_6_months"/>
+
+    <android.support.design.widget.TabItem
+        android:id="@+id/one_year_history"
+        style="@style/TabItem"
+        android:contentDescription="@string/tab_1_year_content_description"
+        android:text="@string/tab_1_year" />
+
+    <android.support.design.widget.TabItem
+        android:id="@+id/two_years_history"
+        style="@style/TabItem"
+        android:contentDescription="@string/tab_2_years_content_description"
+        android:text="@string/tab_2_years" />
+
+    <android.support.design.widget.TabItem
+        android:id="@+id/five_years_history"
+        style="@style/TabItem"
+        android:contentDescription="@string/tab_5_years_content_description"
+        android:text="@string/tab_5_years" />
+
+    <android.support.design.widget.TabItem
+        android:id="@+id/max_history"
+        style="@style/TabItem"
+        android:contentDescription="@string/tab_max_history_content_description"
+        android:text="@string/tab_max_history" />
+
+</android.support.design.widget.TabLayout>

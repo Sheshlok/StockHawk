@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Prior to Android 4.0, widget margins were needed. After that they were added automatically-->
+<resources>
+    <dimen name="widget_margin">0dp</dimen>
+</resources>

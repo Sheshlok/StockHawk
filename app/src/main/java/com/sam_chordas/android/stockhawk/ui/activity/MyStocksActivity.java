@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.text.InputType;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -23,14 +25,16 @@ import com.google.android.gms.gcm.PeriodicTask;
 import com.google.android.gms.gcm.Task;
 import com.melnykov.fab.FloatingActionButton;
 import com.sam_chordas.android.stockhawk.R;
-import com.sam_chordas.android.stockhawk.data.QuoteColumns;
-import com.sam_chordas.android.stockhawk.data.QuoteProvider;
+import com.sam_chordas.android.stockhawk.data.provider.QuoteColumns;
+import com.sam_chordas.android.stockhawk.data.provider.QuoteProvider;
 import com.sam_chordas.android.stockhawk.service.StockIntentService;
 import com.sam_chordas.android.stockhawk.service.StockTaskService;
-import com.sam_chordas.android.stockhawk.ui.Utils;
 import com.sam_chordas.android.stockhawk.ui.adapter.QuoteCursorAdapter;
 import com.sam_chordas.android.stockhawk.ui.listener.RecyclerViewItemClickListener;
 import com.sam_chordas.android.stockhawk.ui.touch_helper.SimpleItemTouchHelperCallback;
+import com.sam_chordas.android.stockhawk.utilities.Connectivity;
+import com.sam_chordas.android.stockhawk.utilities.Constants;
+import com.sam_chordas.android.stockhawk.utilities.Utils;
 
 import butterknife.BindView;
 import timber.log.Timber;
@@ -60,8 +64,15 @@ public class MyStocksActivity extends BaseActivity implements LoaderManager.Load
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = this;
-        isConnected = Utils.isConnected(this);
+        isConnected = Connectivity.isConnected(this);
+
         setContentView(R.layout.activity_my_stocks);
+
+        if (mToolbar != null) {
+            AppBarLayout.LayoutParams layoutParams = (AppBarLayout.LayoutParams) mToolbar.getLayoutParams();
+            layoutParams.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL |
+                    AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS | AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP);
+        }
 
         // The intent service is for executing immediate pulls from the Yahoo API
         // GCMTaskService can only schedule tasks, they cannot execute immediately
@@ -80,10 +91,8 @@ public class MyStocksActivity extends BaseActivity implements LoaderManager.Load
 
         mCursorAdapter = new QuoteCursorAdapter(this, null);
         mRecyclerView.addOnItemTouchListener(new RecyclerViewItemClickListener(this,
-                (view, position) -> {
-                    //TODO:
-                    // do something on item click
-                }));
+                (view, position) -> startDetailActivity(position)));
+
         mRecyclerView.setAdapter(mCursorAdapter);
 
 
@@ -125,6 +134,18 @@ public class MyStocksActivity extends BaseActivity implements LoaderManager.Load
                 networkToast();
             }
 
+        });
+
+        // Adding ScrollChange Listener so that the FAB is not visible when scrolling up or down
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    mFab.setVisibility(View.VISIBLE);
+                }
+                else mFab.setVisibility(View.GONE);
+            }
         });
 
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mCursorAdapter);
@@ -204,7 +225,8 @@ public class MyStocksActivity extends BaseActivity implements LoaderManager.Load
         // This narrows the return to only the stocks that are most current.
         return new CursorLoader(this, QuoteProvider.Quotes.CONTENT_URI,
                 new String[]{QuoteColumns._ID, QuoteColumns.SYMBOL, QuoteColumns.BIDPRICE,
-                        QuoteColumns.PERCENT_CHANGE, QuoteColumns.CHANGE, QuoteColumns.ISUP},
+                        QuoteColumns.PERCENT_CHANGE, QuoteColumns.CHANGE, QuoteColumns.ISUP,
+                        QuoteColumns.COMPANYNAME},
                 QuoteColumns.ISCURRENT + " = ?",
                 new String[]{"1"},
                 null);
@@ -219,6 +241,12 @@ public class MyStocksActivity extends BaseActivity implements LoaderManager.Load
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         mCursorAdapter.swapCursor(null);
+    }
+
+    private void startDetailActivity(int position) {
+        Intent intent = new Intent(mContext, StockDetailsActivity.class);
+        intent.putExtra(Constants.SELECTED_STOCK_POSITION, position);
+        mContext.startActivity(intent);
     }
 
 }

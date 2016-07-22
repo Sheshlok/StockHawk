@@ -13,9 +13,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sam_chordas.android.stockhawk.R;
-import com.sam_chordas.android.stockhawk.data.QuoteColumns;
-import com.sam_chordas.android.stockhawk.data.QuoteProvider;
-import com.sam_chordas.android.stockhawk.ui.Utils;
+import com.sam_chordas.android.stockhawk.data.provider.QuoteColumns;
+import com.sam_chordas.android.stockhawk.data.provider.QuoteProvider;
+import com.sam_chordas.android.stockhawk.utilities.Utils;
 import com.sam_chordas.android.stockhawk.ui.touch_helper.ItemTouchHelperAdapter;
 import com.sam_chordas.android.stockhawk.ui.touch_helper.ItemTouchHelperViewHolder;
 
@@ -31,8 +31,8 @@ import butterknife.ButterKnife;
 public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAdapter.ViewHolder>
         implements ItemTouchHelperAdapter {
 
-    @NonNull  private static Context mContext;
-    @NonNull  private LayoutInflater mLayoutInflater;
+    @NonNull  private final Context mContext;
+    @NonNull  private final LayoutInflater mLayoutInflater;
     private static Typeface robotoLight;
     private boolean isPercent;
 
@@ -59,9 +59,10 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
         return super.getItemCount();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder
+    public class ViewHolder extends RecyclerView.ViewHolder
             implements ItemTouchHelperViewHolder, View.OnClickListener {
         @BindView(R.id.stock_symbol) TextView symbol;
+        @BindView(R.id.company_name) TextView companyName;
         @BindView(R.id.bid_price) TextView bidPrice;
         @BindView(R.id.change) TextView change;
 
@@ -73,6 +74,9 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
         public void bind(@NonNull Cursor cursor) {
             symbol.setTypeface(robotoLight);
             symbol.setText(cursor.getString(cursor.getColumnIndex("symbol")));
+            companyName.setTypeface(robotoLight);
+            companyName.setText(cursor.getString(cursor.getColumnIndex("company_name")));
+
             bidPrice.setText(cursor.getString(cursor.getColumnIndex("bid_price")));
             if (cursor.getInt(cursor.getColumnIndex("is_up")) == 1) {
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {

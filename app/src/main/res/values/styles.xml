@@ -1,31 +1,64 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat">
-        <item name="colorPrimary">@color/material_cyan_500</item>
-        <item name="colorPrimaryDark">@color/material_cyan_700</item>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <!-- Customize your theme here. -->
     </style>
 
     <style name="WidgetTitleTextStyle">
         <item name="android:textSize">20sp</item>
-        <item name="android:textColor">#FFF</item>
+        <item name="android:textColor">@color/textAndIcons</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="StockSymbolTextStyle">
+        <item name="android:textColor">@color/textPrimary</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="CompanyNameTextStyle">
+        <item name="android:textColor">@color/textSecondary</item>
+    </style>
+
+    <style name="BidPriceTextStyle">
+        <item name="android:textColor">@color/textSecondary</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="PercentChangeTextStyle">
         <item name="android:textSize">20sp</item>
-        <item name="android:textColor">#FFF</item>
+        <item name="android:textColor">@color/textAndIcons</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="BidPriceTextStyle">
-        <item name="android:textSize">20sp</item>
+    <!--Toolbar-->
+    <style name="ActionBar.ThemeOverlay" parent="">
+        <item name="android:textColorPrimary">@color/textAndIcons</item>
+        <item name="colorControlNormal">@color/textAndIcons</item>
+        <item name="colorControlHighlight">@color/textAndIcons</item>
     </style>
 
-    <style name="StockSymbolTextStyle">
-        <item name="android:textSize">25sp</item>
-        <item name="android:textAllCaps">true</item>
+    <style name="ActionBar.TitleText" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/textAndIcons</item>
+        <item name="android:textSize">18sp</item>
     </style>
+
+    <style name="ActionBar.SubTitle" parent="TextAppearance.AppCompat.Widget.ActionBar.Subtitle">
+        <item name="android:textColor">@color/textAndIcons</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!-- Tab Item Style -->
+    <style name="TabItem">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
 
 </resources>

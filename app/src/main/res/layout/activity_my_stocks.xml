@@ -1,27 +1,35 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fab="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.activity.MyStocksActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/toolbar" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_my_stocks" />
 
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:backgroundTint="@color/material_cyan_500"
+        android:layout_margin="@dimen/abc_list_item_padding_horizontal_material"
+        android:backgroundTint="@color/colorAccent"
+        android:contentDescription="@string/fabContentDescription"
         android:src="@drawable/ic_add_white_24dp"
         fab:fab_colorNormal="@color/material_cyan_500"
         fab:fab_colorPressed="@color/material_cyan_600"
         fab:fab_colorRipple="@color/ripple"
         fab:fab_shadow="true"
-        fab:fab_type="normal"
-        fab:layout_anchor="recycler_view"
-        fab:layout_anchorGravity="bottom | end"
-        android:contentDescription="@string/fabContentDescription"/>
-</FrameLayout>
+        fab:fab_type="normal" />
+
+</android.support.design.widget.CoordinatorLayout>

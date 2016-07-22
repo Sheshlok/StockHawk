@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Stock Hawk</string>
+    <string name="title_activity_stock_details">Stock Details</string>
+    <string name="title_widget_detail">Stock Widget Details</string>
 
     <string name="action_example">Example action</string>
 
@@ -8,10 +10,55 @@
     <string name="symbol_search">Symbol Search</string>
     <string name="content_test">Search for a Stock Symbol</string>
     <string name="input_hint" translatable="false">FB</string>
-    <string name="input_prefill" translatable="false"/>
+    <string name="input_prefill" translatable="false" />
     <string name="fabContentDescription">Add Stock Symbol</string>
     <string name="network_toast">Uh-oh! This app requires an internet connection</string>
     <string name="stock_already_saved">This stock is already saved!</string>
     <string name="no_stock_symbol_provided">No Stock Symbol provided!</string>
     <string name="no_stock_matches">Company not listed</string>
+    <string name="quote_list_empty_string">No Saved Stock Symbols</string>
+
+
+    <!-- Stock Info -->
+    <string name="stock_details_open">Open</string>
+    <string name="stock_details_market_cap">MktCap</string>
+    <string name="stock_details_book_value">Book Value</string>
+    <string name="stock_details_EBITDA">EBITDA</string>
+    <string name="stock_details_DaysHigh">DaysHigh</string>
+    <string name="stock_details_year_high">YearHigh</string>
+    <string name="stock_details_DaysLow">DaysLow</string>
+    <string name="stock_details_year_low">YearLow</string>
+    <string name="stock_details_vol">Vol</string>
+    <string name="stock_details_avg_vol">Avg Vol</string>
+    <string name="stock_details_previous_close">Prev Close</string>
+    <string name="stock_details_pe">P/E</string>
+    <string name="stock_details_eps">EPS</string>
+    <string name="stock_details_dividend_by_yield">Div/Yield</string>
+
+    <!-- History Tabs -->
+    <string name="tab_1_day">1D</string>
+    <string name="tab_1_month">1M</string>
+    <string name="tab_3_months">3M</string>
+    <string name="tab_6_months">6M</string>
+    <string name="tab_1_year">1Y</string>
+    <string name="tab_2_years">2Y</string>
+    <string name="tab_5_years">5Y</string>
+    <string name="tab_max_history">MAX</string>
+
+    <!-- Content Descriptions for History Tabs-->
+    <string name="tab_1_day_content_description">1 day stock chart</string>
+    <string name="tab_1_month_content_description">1 month stock chart</string>
+    <string name="tab_3_months_content_description">3 months stock chart</string>
+    <string name="tab_6_months_content_description">6 months stock chart</string>
+    <string name="tab_1_year_content_description">1 year stock chart</string>
+    <string name="tab_2_years_content_description">2 years stock chart</string>
+    <string name="tab_5_years_content_description">5 years stock chart </string>
+    <string name="tab_max_history_content_description">MAX history stock chart</string>
+
+
+    <!-- Chart Content Description -->
+    <string name="chart_description">Stock History</string>
+    <string name="chart_no_data_text">No Chart Data Available!</string>
+
+
 </resources>

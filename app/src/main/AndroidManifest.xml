@@ -2,10 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sam_chordas.android.stockhawk">
 
-
     <uses-sdk xmlns:tools="http://schemas.android.com/tools"
-        tools:overrideLibrary="timber.log" />
-
+        tools:overrideLibrary="com.fernandocejas.frodo, timber.log" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -24,6 +22,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
         <activity
@@ -34,6 +33,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name=".ui.activity.StockDetailsActivity"
+            android:label="@string/title_activity_stock_details"
+            android:parentActivityName=".ui.activity.MyStocksActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.MyStocksActivity"/>
         </activity>
 
         <service
@@ -48,9 +55,26 @@
         <service android:name="com.sam_chordas.android.stockhawk.service.StockIntentService" />
 
         <provider
-            android:name="com.sam_chordas.android.stockhawk.data.generated.QuoteProvider"
-            android:authorities="com.sam_chordas.android.stockhawk.data.QuoteProvider"
+            android:name="com.sam_chordas.android.stockhawk.data.provider.generated.QuoteProvider"
+            android:authorities="com.sam_chordas.android.stockhawk.data.provider.QuoteProvider"
             android:exported="false" />
+
+        <receiver android:name=".widget.StockListWidgetProvider"
+            android:label="@string/title_widget_detail"
+            android:enabled="@bool/widget_list_enabled">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.sam_chordas.android.stockhawk.ACTION_DATA_UPDATED"/>
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/widget_list_info"/>
+        </receiver>
+
+        <service android:name=".widget.StockListWidgetRemoteViewsService"
+            android:enabled="@bool/widget_list_enabled"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS"/>
+
     </application>
 
 </manifest>

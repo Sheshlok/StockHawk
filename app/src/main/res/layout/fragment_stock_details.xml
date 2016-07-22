@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/stock_details_swipe_refresh_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.StockDetailsFragment">
+
+    <ScrollView
+        android:id="@+id/stock_details_container_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/stock_details_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:orientation="vertical"
+            android:padding="@dimen/abc_list_item_padding_horizontal_material">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/abc_action_bar_content_inset_material"
+                android:layout_marginTop="@dimen/abc_action_bar_content_inset_material"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/stock_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                    android:textColor="@color/colorPrimaryDark"
+                    tools:text="220.25" />
+
+                <TextView
+                    android:id="@+id/stock_percent_change"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="@dimen/abc_list_item_padding_horizontal_material"
+                    android:paddingStart="@dimen/abc_list_item_padding_horizontal_material"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    tools:text="+1.08%" />
+
+            </LinearLayout>
+
+            <include layout="@layout/stock_details_financial_info_grid" />
+
+            <include layout="@layout/stock_details_history_tabbar" />
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="8dp"
+                card_view:cardPreventCornerOverlap="false"
+                card_view:cardUseCompatPadding="true">
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/stock_history_line_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:contentDescription="@string/chart_description" />
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="64dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</android.support.v4.widget.SwipeRefreshLayout>
+
+

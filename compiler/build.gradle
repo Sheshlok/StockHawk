@@ -1,0 +1,22 @@
+apply plugin: 'java'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(path: ':library')
+    compile project(path: ':adapter')
+
+    /*
+        JavaPoet is a JavaAPI for generating '.java' source files. Source file generation can
+        be helpful when doing things such as annotation processing or interacting with meta data
+        files (For e.g. database schemas, protocol formats). By generating code, you eliminate the
+        need to write boiler plate while also keeping a single source of truth for the meta-data
+        https://github.com/square/javapoet
+     */
+    compile 'com.squareup:javapoet:1.7.0'
+    /*
+        The Guava project contains several of Google's core libraries that we rely on in our
+        Java-based projects: collections, caching, primitives support, concurrency libraries,
+        common annotations, string processing, I/O, and so forth
+     */
+    compile 'com.google.guava:guava:19.0'
+}

@@ -37,10 +37,11 @@ public class StockIntentService extends IntentService {
         // scheduling a task.
         try {
             stockTaskService.onRunTask(new TaskParams(intent.getStringExtra("tag"), args));
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             new Handler(Looper.getMainLooper()).post(() -> {
                 Toast.makeText(getApplicationContext(), R.string.no_stock_matches, Toast.LENGTH_SHORT).show();
             });
+            e.printStackTrace();
         }
     }
 }
