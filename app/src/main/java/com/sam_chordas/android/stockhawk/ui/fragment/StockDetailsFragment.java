@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -19,6 +20,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.sam_chordas.android.stockhawk.R;
 import com.sam_chordas.android.stockhawk.data.model.stockHistory.Series;
+import com.sam_chordas.android.stockhawk.ui.chartHelper.CustomMarkerView;
 import com.sam_chordas.android.stockhawk.ui.chartHelper.CustomXAxisValueFormatter;
 import com.sam_chordas.android.stockhawk.ui.chartHelper.CustomYAxisValueFormatter;
 import com.sam_chordas.android.stockhawk.utilities.Constants;
@@ -318,6 +320,13 @@ public class StockDetailsFragment extends BaseFragment implements SwipeRefreshLa
         mLineChart.setPinchZoom(true);
         mLineChart.setDragEnabled(true);
         mLineChart.setScaleEnabled(true);
+
+        //Create a custom marker view and specify the layout to use for it
+        MarkerView markerView = new CustomMarkerView(getActivity(), R.layout.custom_marker_view);
+
+        // Set the marker to the chart
+        mLineChart.setMarkerView(markerView);
+
 
         // Styling/modifying the X-axis
         XAxis xAxis = mLineChart.getXAxis();

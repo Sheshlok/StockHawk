@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
     <string name="app_name">Stock Hawk</string>
     <string name="title_activity_stock_details">Stock Details</string>
     <string name="title_widget_detail">Stock Widget Details</string>
@@ -60,6 +60,9 @@
     <string name="chart_description">Stock History</string>
     <string name="chart_no_data_text">No Chart Data Available!</string>
 
+    <!-- Chart marker -->
+    <string name="format_marker_view"><xliff:g id="formatted_y_val">%1$s</xliff:g> $</string>
+
     <!-- Navigation Drawer -->
     <string name="nav_drawer_home">Home</string>
     <string name="nav_drawer_messages">Messages</string>
@@ -67,5 +70,7 @@
     <string name="nav_drawer_discussion">Discussion</string>
     <string name="nav_drawer_subItem1">Sub Item 1</string>
     <string name="nav_drawer_subItem2">Sub Item 2</string>
+
+
 
 </resources>
