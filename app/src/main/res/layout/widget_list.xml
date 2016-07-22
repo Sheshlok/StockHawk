@@ -11,8 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/abc_action_bar_default_height_material"
         android:background="@color/widget_title_background"
-        android:clickable="true"
-        android:focusable="true"
         android:elevation="@dimen/widget_elevation"
         android:orientation="horizontal">
 

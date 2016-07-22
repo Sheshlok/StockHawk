@@ -10,6 +10,7 @@
     <color name="textSecondary">#727272</color>
     <color name="dividerColor">#B6B6B6</color>
 
+    <color name="window_background">#FFF5F5F5</color>
 
     <color name="stockLossBackground">#D50000</color>
     <color name="stockGainBackground">#00C853</color>

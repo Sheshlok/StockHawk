@@ -5,6 +5,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/window_background</item>
+        <!--<item name="android:activatedBackgroundIndicator">@drawable/drawer_list_selector</item>-->
         <!-- Customize your theme here. -->
     </style>
 
@@ -52,7 +54,7 @@
         <item name="android:textSize">14sp</item>
     </style>
 
-    <!-- Tab Item Style -->
+    <!-- Tab Item -->
     <style name="TabItem">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -60,13 +62,14 @@
         <item name="android:focusable">true</item>
     </style>
 
+    <!-- Chart Marker View -->
     <style name="PriceBubbleMarkerView">
         <item name="android:layout_marginLeft">5dp</item>
         <item name="android:layout_marginRight">5dp</item>
         <item name="android:layout_marginTop">7dp</item>
         <item name="android:ellipsize">end</item>
         <item name="android:singleLine">true</item>
-        <item name=" android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
         <item name="android:textColor">@color/textAndIcons</item>
     </style>
 

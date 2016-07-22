@@ -63,13 +63,14 @@
     <!-- Chart marker -->
     <string name="format_marker_view"><xliff:g id="formatted_y_val">%1$s</xliff:g> $</string>
 
-    <!-- Navigation Drawer -->
+    <!-- Navigation  -->
     <string name="nav_drawer_home">Home</string>
     <string name="nav_drawer_messages">Messages</string>
     <string name="nav_drawer_friends">Friend</string>
     <string name="nav_drawer_discussion">Discussion</string>
     <string name="nav_drawer_subItem1">Sub Item 1</string>
     <string name="nav_drawer_subItem2">Sub Item 2</string>
+    <string name="nav_header_userName">UserName</string>
 
 
 
