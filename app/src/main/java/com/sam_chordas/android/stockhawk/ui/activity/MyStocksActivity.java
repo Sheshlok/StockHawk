@@ -8,6 +8,9 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -59,6 +62,8 @@ public class MyStocksActivity extends BaseActivity implements LoaderManager.Load
 
     @BindView(R.id.recycler_view) RecyclerView mRecyclerView;
     @BindView(R.id.fab) FloatingActionButton mFab;
+    @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
+    @BindView(R.id.nav_view) NavigationView mNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +72,8 @@ public class MyStocksActivity extends BaseActivity implements LoaderManager.Load
         isConnected = Connectivity.isConnected(this);
 
         setContentView(R.layout.activity_my_stocks);
+
+        if (mNavigationView != null) setupDrawerContent(mNavigationView);
 
         if (mToolbar != null) {
             AppBarLayout.LayoutParams layoutParams = (AppBarLayout.LayoutParams) mToolbar.getLayoutParams();
@@ -188,6 +195,12 @@ public class MyStocksActivity extends BaseActivity implements LoaderManager.Load
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+
+        /** for navigation drawer **/
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+        /** for navigation drawer **/
+
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
     }
@@ -216,6 +229,13 @@ public class MyStocksActivity extends BaseActivity implements LoaderManager.Load
             Utils.showPercent = !Utils.showPercent;
             this.getContentResolver().notifyChange(QuoteProvider.Quotes.CONTENT_URI, null);
         }
+
+        /** For Nav Drawer */
+        if (id == android.R.id.home) {
+            mDrawerLayout.openDrawer(GravityCompat.START);
+            return true;
+        }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -247,6 +267,14 @@ public class MyStocksActivity extends BaseActivity implements LoaderManager.Load
         Intent intent = new Intent(mContext, StockDetailsActivity.class);
         intent.putExtra(Constants.SELECTED_STOCK_POSITION, position);
         mContext.startActivity(intent);
+    }
+
+    private void setupDrawerContent(NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(menuItem -> {
+            menuItem.setChecked(true);
+            mDrawerLayout.closeDrawers();
+            return true;
+        });
     }
 
 }

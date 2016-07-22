@@ -115,13 +115,13 @@ public class StockListWidgetRemoteViewsService extends RemoteViewsService {
                         data.get(position).getChangeInPercent() != null ? data.get(position).getChangeInPercent(): "---");
 
 
-//                if (data.get(position).IsUp()) {
-//                        priceChangeDrawableId = R.drawable.percent_change_pill_green;
-//                    } else {
-//                        priceChangeDrawableId = R.drawable.percent_change_pill_red;
-//                    }
-//
-//                remoteViews.setInt(R.id.widget_percent_change, "setBackGroundResource", priceChangeDrawableId);
+                    if (data.get(position).IsUp()) {
+                            priceChangeDrawableId = R.drawable.percent_change_pill_green;
+                        } else {
+                            priceChangeDrawableId = R.drawable.percent_change_pill_red;
+                        }
+
+                    remoteViews.setInt(R.id.widget_percent_change, "setBackGroundResource", priceChangeDrawableId);
 
                 /*
                     Now handle the unique part for each element, calling 'setOnClickFillInIntent' to

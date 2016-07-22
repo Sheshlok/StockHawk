@@ -34,6 +34,9 @@
     <dimen name="widget_list_min_resize_height">110dp</dimen>
     <dimen name="widget_margin">8dp</dimen>
 
+    <!-- Nav -->
+    <dimen name="nav_header_height">192dp</dimen>
+
 
 
 </resources>

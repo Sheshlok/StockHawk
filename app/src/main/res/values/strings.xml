@@ -60,5 +60,12 @@
     <string name="chart_description">Stock History</string>
     <string name="chart_no_data_text">No Chart Data Available!</string>
 
+    <!-- Navigation Drawer -->
+    <string name="nav_drawer_home">Home</string>
+    <string name="nav_drawer_messages">Messages</string>
+    <string name="nav_drawer_friends">Friend</string>
+    <string name="nav_drawer_discussion">Discussion</string>
+    <string name="nav_drawer_subItem1">Sub Item 1</string>
+    <string name="nav_drawer_subItem2">Sub Item 2</string>
 
 </resources>
