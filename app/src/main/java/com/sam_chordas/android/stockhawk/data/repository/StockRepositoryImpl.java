@@ -8,7 +8,7 @@ import com.sam_chordas.android.stockhawk.data.model.stockQuote.Quote;
 import com.sam_chordas.android.stockhawk.data.networkingAPI.StockAPI;
 import com.sam_chordas.android.stockhawk.data.provider.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.provider.QuoteProvider;
-import com.sam_chordas.android.stockhawk.utilities.Utils;
+import com.sam_chordas.android.stockhawk.utilities.NumberUtils;
 import com.squareup.sqlbrite.BriteContentResolver;
 
 import java.util.List;
@@ -44,8 +44,8 @@ public class StockRepositoryImpl implements StockRepository {
 //                .onErrorResumeNext(Observable.empty())
                 .map(stockResultWrapper -> stockResultWrapper.getQuery().getResults().getQuote())
                 .map(quote -> {
-                    quote.setVolume(Utils.format(Long.parseLong(quote.getVolume())));
-                    quote.setAverageDailyVolume(Utils.format(Long.parseLong(quote.getAverageDailyVolume())));
+                    quote.setVolume(NumberUtils.format(Long.parseLong(quote.getVolume())));
+                    quote.setAverageDailyVolume(NumberUtils.format(Long.parseLong(quote.getAverageDailyVolume())));
                     return quote;
                 })
                 .subscribeOn(Schedulers.io());
@@ -66,7 +66,7 @@ public class StockRepositoryImpl implements StockRepository {
     public Observable<Map<String, String>> getSavedCompanies() {
         return mBriteContentResolver.createQuery(QuoteProvider.Quotes.CONTENT_URI, Quote.STOCK_PROJECTION_COMPANY_INFO,
                 QuoteColumns.ISCURRENT + " = ?", new String[]{"1"}, null, true)
-                .map(Quote.COMPANY_INFO_PROJECTION_MAP);
+                .map(Quote.STOCKSYMBOL_NAME_PROJECTION_MAP);
 
     }
 
@@ -77,7 +77,7 @@ public class StockRepositoryImpl implements StockRepository {
     public Observable<List<Quote>> getStockListForWidget() {
         return Observable.just(mContentResolver.query(QuoteProvider.Quotes.CONTENT_URI, Quote.STOCK_PROJECTION_WIDGET_INFO,
                 QuoteColumns.ISCURRENT + " = ?", new String[]{"1"}, null))
-                .map(Quote.WIDGET_PROJECTION_MAP);
+                .map(Quote.COMPANY_PROJECTION_MAP);
 
     }
 

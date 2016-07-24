@@ -4,6 +4,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+
+import timber.log.Timber;
 
 /**
  * Created by sam_chordas on 10/6/15.
@@ -16,12 +19,14 @@ public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHold
     private Cursor mCursor;
     private boolean mDataIsValid;
     private int mRowIdColumn;
+    private View mEmptyView;
     // Receives callbacks when a data set has been changed, or made invalid. The typical data
-    // sets that are observed are cursor(s) or adapter(s).
+    // sets that are observed are cursor(s) for e.g..
     private DataSetObserver mDataSetObserver;
 
-    public CursorRecyclerViewAdapter(Context context, Cursor cursor) {
+    public CursorRecyclerViewAdapter(Context context, Cursor cursor, View emptyView) {
         mCursor = cursor;
+        mEmptyView = emptyView;
         mDataIsValid = cursor != null;
         mRowIdColumn = mDataIsValid ? mCursor.getColumnIndex("_id") : -1;
         mDataSetObserver = new NotifyingDataSetObserver();
@@ -70,6 +75,7 @@ public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHold
     }
 
     public Cursor swapCursor(Cursor newCursor) {
+        Timber.e("in swapCursor");
         if (newCursor == mCursor) {
             return null;
         }
@@ -90,6 +96,7 @@ public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHold
             mDataIsValid = false;
             notifyDataSetChanged();
         }
+        mEmptyView.setVisibility(getItemCount() == 0 ? View.VISIBLE: View.GONE);
         return oldCursor;
     }
 
@@ -112,4 +119,5 @@ public abstract class CursorRecyclerViewAdapter<VH extends RecyclerView.ViewHold
             notifyDataSetChanged();
         }
     }
+
 }

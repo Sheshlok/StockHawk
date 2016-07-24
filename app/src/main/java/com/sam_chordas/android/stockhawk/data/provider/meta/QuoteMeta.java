@@ -32,10 +32,11 @@ public interface QuoteMeta {
             QuoteColumns.COMPANYNAME,
             QuoteColumns.BIDPRICE,
             QuoteColumns.PERCENT_CHANGE,
+            QuoteColumns.CHANGE,
             QuoteColumns.ISUP
     };
 
-    Func1<SqlBrite.Query, Map<String, String>> COMPANY_INFO_PROJECTION_MAP = query -> {
+    Func1<SqlBrite.Query, Map<String, String>> STOCKSYMBOL_NAME_PROJECTION_MAP = query -> {
         Cursor cursor = query.run();
         try {
             assert cursor != null;
@@ -54,7 +55,7 @@ public interface QuoteMeta {
         }
     };
 
-    Func1<Cursor, List<Quote>> WIDGET_PROJECTION_MAP = cursor -> {
+    Func1<Cursor, List<Quote>> COMPANY_PROJECTION_MAP = cursor -> {
         try {
             List<Quote> stockQuoteList = new ArrayList<>(cursor.getCount());
             while (cursor.moveToNext()) {
@@ -63,6 +64,7 @@ public interface QuoteMeta {
                         .setName(DbUtils.getString(cursor, QuoteColumns.COMPANYNAME))
                         .setStockPrice(DbUtils.getString(cursor, QuoteColumns.BIDPRICE))
                         .setChangeInPercent(DbUtils.getString(cursor, QuoteColumns.PERCENT_CHANGE))
+                        .setChange(DbUtils.getString(cursor, QuoteColumns.CHANGE))
                         .setIsUp(DbUtils.getBoolean(cursor, QuoteColumns.ISUP)));
             }
             return stockQuoteList;

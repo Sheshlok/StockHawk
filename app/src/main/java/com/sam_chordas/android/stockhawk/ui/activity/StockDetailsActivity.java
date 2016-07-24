@@ -11,9 +11,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
-import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
 import com.pixelcan.inkpageindicator.InkPageIndicator;
 import com.sam_chordas.android.stockhawk.R;
+import com.sam_chordas.android.stockhawk.ui.chartHelper.CubeOutTransformer;
 import com.sam_chordas.android.stockhawk.ui.fragment.StockDetailsFragment;
 import com.sam_chordas.android.stockhawk.utilities.Constants;
 import com.sam_chordas.android.stockhawk.widget.SmartFragmentStatePagerAdapter;

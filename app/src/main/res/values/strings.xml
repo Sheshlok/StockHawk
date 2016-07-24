@@ -12,11 +12,11 @@
     <string name="input_hint" translatable="false">FB</string>
     <string name="input_prefill" translatable="false" />
     <string name="fabContentDescription">Add Stock Symbol</string>
-    <string name="network_toast">Uh-oh! This app requires an internet connection</string>
     <string name="stock_already_saved">This stock is already saved!</string>
     <string name="no_stock_symbol_provided">No Stock Symbol provided!</string>
     <string name="no_stock_matches">Company not listed</string>
-    <string name="quote_list_empty_string">No Saved Stock Symbols</string>
+    <string name="no_internet_connection">No Internet Connection!</string>
+    <string name="action_refresh_no_internet_connection">Refresh</string>
 
 
     <!-- Stock Info -->
@@ -72,6 +72,13 @@
     <string name="nav_drawer_subItem2">Sub Item 2</string>
     <string name="nav_header_userName">UserName</string>
 
+    <!--SharePrefs -->
+    <string name="pref_quote_status_key" translatable="false">quoteStatus</string>
+
+    <!-- Error states -->
+    <string name="empty_quote_list_no_saved_stocks">No Saved Stock Symbols</string>
+    <string name="empty_quote_list_server_down">Stock Information NA. Server Down!</string>
+    <string name="empty_quote_list_server_error">Check For An Updated Version of StockHawk.</string>
 
 
 </resources>

@@ -4,7 +4,17 @@ package com.sam_chordas.android.stockhawk.utilities;
  * Created by sheshloksamal on 20/07/16.
  */
 
+import android.annotation.SuppressLint;
+import android.content.ContentProviderOperation;
+import android.content.Context;
 import android.database.Cursor;
+
+import com.sam_chordas.android.stockhawk.data.provider.QuoteColumns;
+import com.sam_chordas.android.stockhawk.data.provider.QuoteProvider;
+import com.sam_chordas.android.stockhawk.service.StockTaskService;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by sheshloksamal on 12/03/16.
@@ -38,6 +48,56 @@ public final class DbUtils {
 
     private DbUtils() {
         throw new AssertionError("No instances.");
+    }
+
+    @SuppressLint("DefaultLocale")
+    public static String truncateBidPrice(String bidPrice) {
+        bidPrice = String.format("%.2f", Float.parseFloat(bidPrice));
+        return bidPrice;
+    }
+
+    public static String truncateChange(String change, boolean isPercentChange) {
+        String weight = change.substring(0, 1);
+        String ampersand = "";
+        if (isPercentChange) {
+            ampersand = change.substring(change.length() - 1, change.length());
+            change = change.substring(0, change.length() - 1);
+        }
+        change = change.substring(1, change.length());
+        double round = (double) Math.round(Double.parseDouble(change) * 100) / 100;
+        change = String.format("%.2f", round);
+        StringBuffer changeBuffer = new StringBuffer(change);
+        changeBuffer.insert(0, weight);
+        changeBuffer.append(ampersand);
+        change = changeBuffer.toString();
+        return change;
+    }
+
+    public static ContentProviderOperation buildBatchOperation(Context context, JSONObject jsonObject, String created) {
+        ContentProviderOperation.Builder builder = ContentProviderOperation.newInsert(
+                QuoteProvider.Quotes.CONTENT_URI);
+        try {
+            String change = jsonObject.getString("Change");
+            builder.withValue(QuoteColumns.SYMBOL, jsonObject.getString("symbol"));
+            builder.withValue(QuoteColumns.BIDPRICE, truncateBidPrice(jsonObject.getString("Bid")));
+            builder.withValue(QuoteColumns.PERCENT_CHANGE,
+                    truncateChange(jsonObject.getString("ChangeinPercent"), true));
+            builder.withValue(QuoteColumns.CHANGE, truncateChange(change, false));
+            builder.withValue(QuoteColumns.ISCURRENT, 1);
+            if (change.charAt(0) == '-') {
+                builder.withValue(QuoteColumns.ISUP, 0);
+            } else {
+                builder.withValue(QuoteColumns.ISUP, 1);
+            }
+            builder.withValue(QuoteColumns.CREATED, created);
+            builder.withValue(QuoteColumns.COMPANYNAME, jsonObject.getString("Name"));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            // Server is malfunctioning
+            PrefUtils.setQuoteStatus(context, StockTaskService.STOCK_QUOTE_SERVER_INVALID);
+        }
+        return builder.build();
     }
 }
 

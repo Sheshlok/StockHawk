@@ -39,7 +39,6 @@ public class StockListWidgetRemoteViewsService extends RemoteViewsService {
 
     @Override
     public void onCreate() {
-        // The service is 'starting', due to a call to 'startService()'
         ((StockHawkApplication)getApplication()).getAppComponent().inject(StockListWidgetRemoteViewsService.this);
     }
 
@@ -72,7 +71,7 @@ public class StockListWidgetRemoteViewsService extends RemoteViewsService {
                 final long identityToken = Binder.clearCallingIdentity();
 
                 mCompositeSubscriptions.add(mStockRepository.getStockListForWidget()
-                        .subscribeOn(Schedulers.immediate())
+                        .observeOn(Schedulers.immediate())
                         .subscribe(stockQuotesList -> data = stockQuotesList,
                                 throwable -> Timber.e("Widget Data loading Failed!: %s", throwable.toString()),
                                 () -> Timber.i("Widget Data Loading Completed!")));
@@ -121,7 +120,7 @@ public class StockListWidgetRemoteViewsService extends RemoteViewsService {
                             priceChangeDrawableId = R.drawable.percent_change_pill_red;
                         }
 
-                    remoteViews.setInt(R.id.widget_percent_change, "setBackGroundResource", priceChangeDrawableId);
+                    remoteViews.setInt(R.id.widget_percent_change, "setBackgroundResource", priceChangeDrawableId);
 
                 /*
                     Now handle the unique part for each element, calling 'setOnClickFillInIntent' to

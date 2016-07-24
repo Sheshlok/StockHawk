@@ -15,9 +15,10 @@ import android.widget.TextView;
 import com.sam_chordas.android.stockhawk.R;
 import com.sam_chordas.android.stockhawk.data.provider.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.provider.QuoteProvider;
-import com.sam_chordas.android.stockhawk.utilities.Utils;
 import com.sam_chordas.android.stockhawk.ui.touch_helper.ItemTouchHelperAdapter;
 import com.sam_chordas.android.stockhawk.ui.touch_helper.ItemTouchHelperViewHolder;
+import com.sam_chordas.android.stockhawk.utilities.DbUtils;
+import com.sam_chordas.android.stockhawk.utilities.JsonCVUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,6 +29,7 @@ import butterknife.ButterKnife;
  * https://gist.github.com/skyfishjy/443b7448f59be978bc59
  * for the code structure
  */
+
 public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAdapter.ViewHolder>
         implements ItemTouchHelperAdapter {
 
@@ -36,8 +38,8 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
     private static Typeface robotoLight;
     private boolean isPercent;
 
-    public QuoteCursorAdapter(@NonNull Context context, Cursor cursor) {
-        super(context, cursor);
+    public QuoteCursorAdapter(@NonNull Context context, Cursor cursor, View emptyView) {
+        super(context, cursor, emptyView);
         mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
     }
@@ -99,7 +101,7 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
                             mContext.getResources().getDrawable(R.drawable.percent_change_pill_red));
                 }
             }
-            if (Utils.showPercent) {
+            if (JsonCVUtils.showPercent) {
                 change.setText(cursor.getString(cursor.getColumnIndex("percent_change")));
             } else {
                 change.setText(cursor.getString(cursor.getColumnIndex("change")));
@@ -126,12 +128,18 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
         }
     }
 
+    @Override
+    public boolean onItemMove(int fromPosition, int toPosition) {
+        notifyItemMoved(fromPosition, toPosition);
+        return true;
+    }
+
     // Implementation of ItemTouchHelperAdapter
     @Override
     public void onItemDismiss(int position) {
         Cursor c = getCursor();
         c.moveToPosition(position);
-        String symbol = c.getString(c.getColumnIndex(QuoteColumns.SYMBOL));
+        String symbol = DbUtils.getString(c, QuoteColumns.SYMBOL);
         mContext.getContentResolver().delete(QuoteProvider.Quotes.withSymbol(symbol), null, null);
         notifyItemRemoved(position);
     }

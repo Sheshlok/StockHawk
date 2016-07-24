@@ -14,4 +14,26 @@
         android:layout_height="match_parent"
         tools:listItem="@layout/list_item_quote"/>
 
+    <!-- Empty View. We will set the text programmatically -->
+    <TextView
+        android:id="@+id/recycler_view_quote_list_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center|top"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:visibility="visible"
+        tools:text="@string/empty_quote_list_no_saved_stocks"/>
+
+    <ImageView
+        android:id="@+id/no_internet_connection_view"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@string/no_internet_connection"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:visibility="gone"
+        tools:src="@drawable/ic_signal_cellular_connected_no_internet_0_bar_black_24dp"/>
+
 </FrameLayout>

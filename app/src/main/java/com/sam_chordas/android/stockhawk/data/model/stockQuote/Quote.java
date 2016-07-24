@@ -31,6 +31,8 @@ public class Quote implements QuoteMeta {
     @Nullable @SerializedName("DividendYield") private String mDividendYield;
     @Nullable @SerializedName("Bid") private String mStockPrice;
     @Nullable @SerializedName("ChangeinPercent") private String mChangeInPercent;
+    @Nullable @SerializedName("Change") private String mChange;
+
 
     public Quote() {}
 
@@ -204,6 +206,15 @@ public class Quote implements QuoteMeta {
 
     public Quote setChangeInPercent(String changeInPercent) {
         this.mChangeInPercent = changeInPercent;
+        return this;
+    }
+
+    public String getChange() {
+        return this.mChange;
+    }
+
+    public Quote setChange(String change) {
+        this.mChange = change;
         return this;
     }
 

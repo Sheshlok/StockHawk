@@ -52,7 +52,7 @@
             android:layout_height="match_parent"
             android:fontFamily="sans-serif-condensed"
             android:gravity="center"
-            android:text="@string/quote_list_empty_string"
+            android:text="@string/empty_quote_list_no_saved_stocks"
             android:textAppearance="?android:textAppearanceLarge" />
     </FrameLayout>
 

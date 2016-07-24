@@ -1,5 +1,6 @@
 package com.sam_chordas.android.stockhawk.service;
 
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.os.RemoteException;
+import android.support.annotation.IntDef;
 
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.GcmTaskService;
@@ -14,10 +16,13 @@ import com.google.android.gms.gcm.TaskParams;
 import com.sam_chordas.android.stockhawk.StockHawkApplication;
 import com.sam_chordas.android.stockhawk.data.provider.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.provider.QuoteProvider;
-import com.sam_chordas.android.stockhawk.utilities.Utils;
+import com.sam_chordas.android.stockhawk.utilities.JsonCVUtils;
+import com.sam_chordas.android.stockhawk.utilities.PrefUtils;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.net.URLEncoder;
 
 import javax.inject.Inject;
@@ -35,6 +40,22 @@ import timber.log.Timber;
 public class StockTaskService extends GcmTaskService {
 
     @Inject OkHttpClient mOkHttpClient;
+    @Inject ContentResolver mContentResolver;
+
+    @Retention(RetentionPolicy.SOURCE)
+
+    @IntDef({
+            STOCK_QUOTE_STATUS_OK,
+            STOCK_QUOTE_SERVER_DOWN,            // Server down. IO Exceptions
+            STOCK_QUOTE_SERVER_INVALID,         // Server malfunctioning. JSON exceptions
+            STOCK_QUOTE_SERVER_UNKNOWN })       // Other. E.g. Haven't contacted the server yet
+
+    public @interface StockQuoteStatus{}
+
+    public static final int STOCK_QUOTE_STATUS_OK = 0;
+    public static final int STOCK_QUOTE_SERVER_DOWN = 1;
+    public static final int STOCK_QUOTE_SERVER_INVALID = 2;
+    public static final int STOCK_QUOTE_SERVER_UNKNOWN = 3;
 
     /* Action name for sending broadcast to WidgetActionProvider (wrapped Broadcast Receiver) */
     public static final String ACTION_DATA_UPDATED = "com.sam_chordas.android.stockhawk.ACTION_DATA_UPDATED";
@@ -65,6 +86,9 @@ public class StockTaskService extends GcmTaskService {
         if (mContext == null) {
             mContext = this;
         }
+
+        /** ---------------------- Encoding and finalizing URL---------------------------------*/
+
         StringBuilder urlStringBuilder = new StringBuilder();
         try {
             // Base URL for the Yahoo query
@@ -76,7 +100,7 @@ public class StockTaskService extends GcmTaskService {
         }
         if (params.getTag().equals("init") || params.getTag().equals("periodic")) {
             isUpdate = true;
-            initQueryCursor = mContext.getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,
+            initQueryCursor = mContentResolver.query(QuoteProvider.Quotes.CONTENT_URI,
                     new String[]{"Distinct " + QuoteColumns.SYMBOL}, null,
                     null, null);
             if (initQueryCursor.getCount() == 0 || initQueryCursor == null) {
@@ -116,6 +140,9 @@ public class StockTaskService extends GcmTaskService {
         urlStringBuilder.append("&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables."
                 + "org%2Falltableswithkeys&callback=");
 
+        /** ---------------------- Encoding and finalizing URL---------------------------------*/
+
+        // ------------------------Network requests and data persistence ------------------------
         String urlString;
         String getResponse;
         int result = GcmNetworkManager.RESULT_FAILURE;
@@ -131,20 +158,32 @@ public class StockTaskService extends GcmTaskService {
                     // update ISCURRENT to 0 (false) so new data is current
                     if (isUpdate) {
                         contentValues.put(QuoteColumns.ISCURRENT, 0);
-                        mContext.getContentResolver().update(QuoteProvider.Quotes.CONTENT_URI, contentValues,
+                        mContentResolver.update(QuoteProvider.Quotes.CONTENT_URI, contentValues,
                                 null, null);
                     }
+
+                    mContentResolver.applyBatch(QuoteProvider.AUTHORITY,
+                            JsonCVUtils.quoteJsonToContentVals(mContext, getResponse));
+
                     // Send broadcast to widgets so widgets can update data
                     updateWidgets();
-                    mContext.getContentResolver().applyBatch(QuoteProvider.AUTHORITY,
-                            Utils.quoteJsonToContentVals(getResponse));
+
+                    // Set QuoteStatus to OK. Successful insertion
+                    PrefUtils.setQuoteStatus(mContext, STOCK_QUOTE_STATUS_OK);
+
                 } catch (RemoteException | OperationApplicationException e) {
+                    // Exceptions on batch operations
                     Timber.e("Error applying batch insert %s", e);
                 }
             } catch (IOException e) {
+                // Error in fetching data. Server might be down
+                PrefUtils.setQuoteStatus(mContext, STOCK_QUOTE_SERVER_DOWN);
                 e.printStackTrace();
             }
         }
+
+        // ------------------------Network requests and data persistence ------------------------
+
 
         return result;
     }
